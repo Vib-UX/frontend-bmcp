@@ -1,0 +1,39 @@
+{
+  "name": "frontend-bmcp",
+  "version": "1.0.0",
+  "description": "Frontend components for Bitcoin Multichain Protocol - Dashboard and SDK",
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "sdk",
+    "dashboard"
+  ],
+  "scripts": {
+    "build": "npm run build:sdk && npm run build:dashboard",
+    "build:sdk": "cd sdk && npm run build",
+    "build:dashboard": "cd dashboard && npm run build",
+    "dev": "cd dashboard && npm run dev",
+    "clean": "npm run clean:sdk && npm run clean:dashboard",
+    "clean:sdk": "cd sdk && npm run clean",
+    "clean:dashboard": "cd dashboard && rm -rf dist",
+    "install:all": "npm install && cd sdk && npm install && cd ../dashboard && npm install"
+  },
+  "keywords": [
+    "bitcoin",
+    "ccip",
+    "cross-chain",
+    "frontend",
+    "dashboard",
+    "sdk"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_USERNAME/frontend-bmcp"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
+
