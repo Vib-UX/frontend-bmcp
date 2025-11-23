@@ -910,14 +910,14 @@ export function BMCPDashboard() {
                           ↓ 6 confirmations + CRE processing ↓
                         </div>
                         <div>
-                          <span className="text-gray-600">Sepolia Tx:</span>
+                          <span className="text-gray-600">Polygon Tx:</span>
                           <a
-                            href="https://sepolia.etherscan.io/tx/0x672297ccdd3720da61a145be286aa17b828d719b34d1aed00b3326df41f6054b"
+                            href="https://polygonscan.com/tx/0x21ee129f2d3ff00da33557ddee0a8c87b2164255ba78db6f854d2e6ae5f350d2"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="block font-mono text-blue-600 hover:text-blue-800 underline mt-1 break-all"
                           >
-                            0x672297cc...41f6054b
+                            0x21ee129f...5f350d2
                           </a>
                         </div>
                       </div>
