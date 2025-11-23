@@ -40,34 +40,17 @@ fi
 echo -e "${GREEN}✅ npm $(npm -v)${NC}"
 echo ""
 
-# Install root dependencies
-echo "📦 Installing root dependencies..."
+# Install dependencies
+echo "📦 Installing dependencies..."
 npm install
-echo -e "${GREEN}✅ Root dependencies installed${NC}"
+echo -e "${GREEN}✅ Dependencies installed${NC}"
 echo ""
 
-# Install SDK dependencies
-echo "📦 Installing SDK dependencies..."
-cd sdk
-npm install
-echo -e "${GREEN}✅ SDK dependencies installed${NC}"
-echo ""
-
-# Build SDK
-echo "🔨 Building SDK..."
+# Build project
+echo "🔨 Building project..."
 npm run build
-echo -e "${GREEN}✅ SDK built successfully${NC}"
+echo -e "${GREEN}✅ Build successful${NC}"
 echo ""
-
-# Install dashboard dependencies
-echo "📦 Installing dashboard dependencies..."
-cd ../dashboard
-npm install
-echo -e "${GREEN}✅ Dashboard dependencies installed${NC}"
-echo ""
-
-# Return to root
-cd ..
 
 echo ""
 echo "✨ Setup complete!"
@@ -79,11 +62,10 @@ echo ""
 echo "  2. Start the dashboard:"
 echo "     ${YELLOW}npm run dev${NC}"
 echo ""
-echo "  3. Open your browser at ${YELLOW}http://localhost:5173${NC}"
+echo "  3. Open your browser at ${YELLOW}http://localhost:8080${NC}"
 echo ""
 echo "For more information, see:"
 echo "  - README.md for usage guide"
 echo "  - SETUP.md for detailed setup instructions"
 echo "  - CONTRIBUTING.md for contribution guidelines"
 echo ""
-

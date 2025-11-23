@@ -5,10 +5,10 @@ Get up and running with Frontend BMCP in 5 minutes!
 ## One-Line Setup
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/frontend-bmcp && cd frontend-bmcp && ./setup.sh
+git clone https://github.com/YOUR_USERNAME/frontend-bmcp && cd frontend-bmcp && npm install && npm run dev
 ```
 
-## Manual Setup (3 Steps)
+## Manual Setup (2 Steps)
 
 ### 1. Clone and Install
 
@@ -18,19 +18,13 @@ cd frontend-bmcp
 npm install
 ```
 
-### 2. Build SDK
-
-```bash
-npm run build:sdk
-```
-
-### 3. Start Dashboard
+### 2. Start Dashboard
 
 ```bash
 npm run dev
 ```
 
-Open http://localhost:5173 🎉
+Open http://localhost:8080 🎉
 
 ## Prerequisites Checklist
 
@@ -72,10 +66,11 @@ Verify: http://localhost:3000/health
 
 ### 3. Generate and Send
 
-1. Click "Generate BMCP Data" → See encoded message
-2. Click "Fetch PSBT" → Create unsigned transaction
-3. Click "Sign PSBT" → Sign with Xverse
-4. Click "Broadcast" → Send to Bitcoin network
+1. The BMCP data is automatically generated as you type
+2. Click "Send Bitcoin Transaction" → Complete all steps automatically:
+   - Fetches PSBT
+   - Signs with Xverse
+   - Broadcasts to Bitcoin network
 
 ### 4. Track Transaction
 
@@ -85,8 +80,10 @@ Verify: http://localhost:3000/health
 
 ## SDK Usage Example
 
+The SDK is built-in at `src/lib/`:
+
 ```typescript
-import { BitcoinCommandEncoder, CHAIN_SELECTORS } from '@bmcp/sdk';
+import { BitcoinCommandEncoder, CHAIN_SELECTORS } from './lib';
 
 // Encode a message
 const bmcpData = BitcoinCommandEncoder.encodeBinary(
@@ -105,38 +102,33 @@ console.log('BMCP Data:', bmcpData.toString('hex'));
 
 ```bash
 # Development
-npm run dev              # Start dashboard (after building SDK)
+npm run dev              # Start dashboard with hot reload
 
 # Building
-npm run build            # Build everything
-npm run build:sdk        # Build SDK only
-npm run build:dashboard  # Build dashboard only
+npm run build            # Build for production
 
-# Cleaning
-npm run clean            # Clean all build outputs
+# Preview
+npm run preview          # Preview production build
 
-# Testing
-cd sdk && npm test       # Test SDK
-cd dashboard && npm test # Test dashboard
+# Linting
+npm run lint            # Check code quality
 ```
 
 ## Project Structure
 
 ```
 frontend-bmcp/
-├── sdk/              # Core SDK for encoding/decoding
-├── dashboard/        # React web interface
-├── README.md         # Full documentation
-├── SETUP.md          # Detailed setup guide
-└── setup.sh          # Automated setup script
+├── src/
+│   ├── lib/            # BMCP SDK (integrated)
+│   ├── App.tsx         # Main app component
+│   ├── BMCPDashboard.tsx  # Dashboard UI
+│   └── main.tsx        # Entry point
+├── dist/               # Production build output
+├── package.json        # Single package.json
+└── README.md          # Full documentation
 ```
 
 ## Troubleshooting
-
-### "Cannot find module '@bmcp/sdk'"
-```bash
-npm run build:sdk
-```
 
 ### "No UTXOs found"
 Get testnet BTC: https://mempool.space/testnet4/faucet
@@ -147,13 +139,42 @@ Start Bitcoin API: `cd /path/to/BMCP/packages/bitcoin-api && npm run dev`
 ### "Wallet not found"
 Install Xverse: https://xverse.app
 
+### Build errors
+```bash
+rm -rf node_modules package-lock.json
+npm install
+npm run build
+```
+
+## Deployment
+
+### Vercel
+
+```bash
+vercel
+```
+
+### Netlify
+
+```yaml
+# netlify.toml
+[build]
+  command = "npm run build"
+  publish = "dist"
+```
+
+### Other Platforms
+
+```bash
+npm run build
+# Upload dist/ folder
+```
+
 ## Next Steps
 
 - 📚 Read full [README.md](./README.md)
 - 🛠️ Check [SETUP.md](./SETUP.md) for detailed setup
 - 🤝 See [CONTRIBUTING.md](./CONTRIBUTING.md) to contribute
-- 📖 Explore [SDK documentation](./sdk/README.md)
-- 🎨 Try [Dashboard guide](./dashboard/README.md)
 
 ## Get Help
 
@@ -163,4 +184,3 @@ Install Xverse: https://xverse.app
 ---
 
 Happy coding! 🚀
-

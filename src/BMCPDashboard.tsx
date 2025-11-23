@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import { BitcoinCommandEncoder, CHAIN_SELECTORS } from '@bmcp/sdk';
+import { BitcoinCommandEncoder, CHAIN_SELECTORS } from './lib';
 import { AddressPurpose, request } from 'sats-connect';
 import { Buffer } from 'buffer';
 

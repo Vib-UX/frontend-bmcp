@@ -5,30 +5,19 @@ Frontend components for **Bitcoin Multichain Protocol** - enabling cross-chain m
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue.svg)](https://www.typescriptlang.org/)
 
-## 📦 Packages
+## 📦 What's Included
 
-This monorepo contains two main packages:
+This is a unified project containing:
 
-### 1. **SDK** (`/sdk`)
-Core TypeScript SDK for BMCP protocol
-
-- **Message Encoding/Decoding**: Binary format for 100KB OP_RETURN
-- **Type Definitions**: Complete TypeScript types
-- **Bitcoin & EVM Encoders**: Command encoders for both chains
-- **Chain Selectors**: Pre-configured network constants
-
-[Read SDK Documentation →](./sdk/README.md)
-
-### 2. **Dashboard** (`/dashboard`)
-Web interface for creating and sending BMCP messages
+### **BMCP Dashboard**
+Web interface for creating and sending BMCP messages with integrated SDK
 
 - **Multi-chain Support**: Base Sepolia, Sepolia, Polygon Amoy, Citrea
 - **Xverse Integration**: Bitcoin wallet PSBT signing
 - **Visual Message Builder**: Function signature builder with presets
 - **Real-time Preview**: Decode and verify BMCP messages
 - **Modern UI**: Built with React, TypeScript, and Tailwind CSS
-
-[Read Dashboard Documentation →](./dashboard/README.md)
+- **Integrated SDK**: Message encoding/decoding built-in
 
 ## 🚀 Quick Start
 
@@ -36,7 +25,7 @@ Web interface for creating and sending BMCP messages
 
 - Node.js 18+
 - npm or yarn
-- [Xverse Wallet](https://xverse.app) (for dashboard)
+- [Xverse Wallet](https://xverse.app) (for Bitcoin transactions)
 - Bitcoin Testnet4 funds (for transactions)
 
 ### Installation
@@ -46,34 +35,27 @@ Web interface for creating and sending BMCP messages
 git clone https://github.com/YOUR_USERNAME/frontend-bmcp
 cd frontend-bmcp
 
-# Install all dependencies
-npm run install:all
-
-# Or if using workspaces (recommended)
+# Install dependencies
 npm install
 ```
 
 ### Development
 
 ```bash
-# Build the SDK (required first)
-npm run build:sdk
-
-# Start the dashboard in development mode
+# Start the development server
 npm run dev
 ```
 
-The dashboard will open at `http://localhost:5173`
+The dashboard will open at `http://localhost:8080`
 
 ### Building for Production
 
 ```bash
-# Build everything
+# Build for production
 npm run build
 
-# Or build individually
-npm run build:sdk      # Build SDK only
-npm run build:dashboard # Build dashboard only
+# Preview the production build
+npm run preview
 ```
 
 ## 📖 What is BMCP?
@@ -137,85 +119,60 @@ BitcoinCommandEncoder.encodeBinary(
 
 ```
 frontend-bmcp/
-├── sdk/                    # Core SDK package
-│   ├── bitcoin/           # Bitcoin-specific encoders
-│   ├── evm/              # EVM-specific encoders
-│   ├── encoding/         # Message encoding utilities
-│   ├── types/            # TypeScript definitions
-│   └── dist/             # Compiled output
-│
-├── dashboard/             # Web dashboard
-│   ├── src/
-│   │   ├── App.tsx       # Main app component
-│   │   ├── BMCPDashboard.tsx  # Dashboard UI
-│   │   └── main.tsx      # Entry point
-│   └── dist/             # Built files
-│
-├── package.json          # Root workspace config
-└── README.md            # This file
+├── src/
+│   ├── lib/                  # BMCP SDK
+│   │   ├── bitcoin/         # Bitcoin-specific encoders
+│   │   ├── evm/            # EVM-specific encoders
+│   │   ├── encoding/       # Message encoding utilities
+│   │   └── types/          # TypeScript definitions
+│   ├── App.tsx             # Main app component
+│   ├── BMCPDashboard.tsx   # Dashboard UI
+│   ├── main.tsx            # Entry point
+│   └── index.css           # Global styles
+├── dist/                   # Built files
+├── index.html              # HTML template
+├── package.json            # Dependencies and scripts
+├── tsconfig.json           # TypeScript configuration
+├── vite.config.ts          # Vite configuration
+├── tailwind.config.js      # Tailwind CSS configuration
+└── README.md              # This file
 ```
 
 ## 🔧 Development Workflow
 
-### 1. SDK Development
+### Making Changes
 
 ```bash
-cd sdk
+# Make changes to any file in src/
+# The dev server will automatically reload
 
-# Make changes to SDK files
-# bitcoin/BitcoinCommandEncoder.ts
-# evm/EVMCommandEncoder.ts
-# encoding/MessageEncoder.ts
+# SDK files are in src/lib/
+# src/lib/bitcoin/BitcoinCommandEncoder.ts
+# src/lib/evm/EVMCommandEncoder.ts
+# src/lib/encoding/MessageEncoder.ts
 
-# Build
-npm run build
-
-# Test in dashboard
-cd ../dashboard
-npm run dev
-```
-
-### 2. Dashboard Development
-
-```bash
-cd dashboard
-
-# Make changes to React components
+# Dashboard files are in src/
 # src/BMCPDashboard.tsx
 # src/App.tsx
-
-# Hot reload during development
-npm run dev
-
-# Build for production
-npm run build
 ```
 
-## 🧪 Testing
+### Using the SDK
 
-### SDK Testing
-```bash
-cd sdk
-npm test
+The SDK is integrated directly into the project at `src/lib/`:
+
+```typescript
+import { BitcoinCommandEncoder, CHAIN_SELECTORS } from './lib';
+
+// Encode a message
+const payload = BitcoinCommandEncoder.encodeBinary(
+  CHAIN_SELECTORS.SEPOLIA,
+  receiverAddress,
+  {
+    signature: 'transfer(address,uint256)',
+    args: [recipient, amount]
+  }
+);
 ```
-
-### Dashboard Testing
-```bash
-cd dashboard
-npm test
-```
-
-## 📚 Documentation
-
-- **[SDK API Reference](./sdk/README.md)**: Complete SDK documentation
-- **[Dashboard Guide](./dashboard/README.md)**: User guide and features
-- **[BMCP Protocol Spec](https://github.com/YOUR_USERNAME/BMCP)**: Protocol details
-
-## 🔗 Related Repositories
-
-- **[BMCP Core](https://github.com/YOUR_USERNAME/BMCP)**: Main protocol repository with contracts and relayers
-- **[BMCP Contracts](https://github.com/YOUR_USERNAME/BMCP)**: Solidity smart contracts
-- **[BMCP Relayer](https://github.com/YOUR_USERNAME/BMCP)**: CRE relayer implementation
 
 ## 🌐 Supported Networks
 
@@ -233,6 +190,34 @@ npm test
 | Base      | 🚧     |
 | Ethereum  | 🚧     |
 | Polygon   | 🚧     |
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+```bash
+# Install Vercel CLI
+npm install -g vercel
+
+# Deploy
+vercel
+```
+
+### Netlify
+
+```bash
+# Build command: npm run build
+# Publish directory: dist
+```
+
+### Manual Deployment
+
+```bash
+# Build the project
+npm run build
+
+# Upload the dist/ folder to your hosting provider
+```
 
 ## 🤝 Contributing
 
@@ -279,4 +264,3 @@ MIT License - see [LICENSE](./LICENSE) file for details
 ---
 
 Built with ❤️ for the Bitcoin and EVM communities
-
