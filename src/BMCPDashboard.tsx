@@ -78,6 +78,7 @@ export function BMCPDashboard() {
   const [feeRateOverride, setFeeRateOverride] = useState<string>('0');
   const [unsignedPsbt, setUnsignedPsbt] = useState<string>('');
   const [_psbtInputs, setPsbtInputs] = useState<Array<number>>([]);
+  const [psbtPreviewLink, setPsbtPreviewLink] = useState<string>('');
   const [signedPsbt, setSignedPsbt] = useState<string>('');
   const [transactionId, setTransactionId] = useState<string>('');
   const [sendBmcpData, setSendBmcpData] = useState<string>('');
@@ -160,6 +161,11 @@ export function BMCPDashboard() {
       const data = await response.json();
       setUnsignedPsbt(data.psbtBase64);
       setPsbtInputs(data.psbtInputs);
+      
+      // Store the preview link if available
+      if (data.link) {
+        setPsbtPreviewLink(data.link);
+      }
 
       // Auto-sign after PSBT is created
       setTimeout(() => signPsbtAuto(data.psbtBase64, data.psbtInputs), 500);
@@ -662,6 +668,31 @@ export function BMCPDashboard() {
                 </span>
               </div>
             )}
+            
+            {/* PSBT Preview Link */}
+            {psbtPreviewLink && !success && (
+              <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="text-blue-600">👁️</span>
+                    <span className="text-sm text-blue-700 font-medium">
+                      Transaction Preview Ready
+                    </span>
+                  </div>
+                  <a
+                    href={psbtPreviewLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 px-3 py-2 bg-blue-500 text-white rounded-lg text-sm font-medium hover:bg-blue-600 transition"
+                  >
+                    Preview on Mempool.space →
+                  </a>
+                </div>
+                <p className="text-xs text-blue-600 mt-2">
+                  View your transaction details before it's signed and broadcast
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Error & Success Messages */}
@@ -686,8 +717,20 @@ export function BMCPDashboard() {
               <div className="mt-3 space-y-3">
                 {unsignedPsbt && (
                   <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                    <div className="text-xs font-medium text-blue-700 mb-1">
-                      Unsigned PSBT
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="text-xs font-medium text-blue-700">
+                        Unsigned PSBT
+                      </div>
+                      {psbtPreviewLink && (
+                        <a
+                          href={psbtPreviewLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1 px-3 py-1 bg-blue-500 text-white rounded text-xs font-medium hover:bg-blue-600 transition"
+                        >
+                          👁️ Preview on Mempool
+                        </a>
+                      )}
                     </div>
                     <div className="font-mono text-xs text-blue-600 break-all">
                       {unsignedPsbt}
