@@ -48,6 +48,24 @@ npm run dev
 
 The dashboard will open at `http://localhost:8080`
 
+**Note**: The dashboard is pre-configured to use the production Bitcoin API at `https://bmcpbitcoin-api-production.up.railway.app`. No local API setup is required unless you want to run your own instance.
+
+### Custom API Configuration (Optional)
+
+To use a different Bitcoin API endpoint (e.g., local development):
+
+1. Copy `env.example` to `.env`:
+   ```bash
+   cp env.example .env
+   ```
+
+2. Edit `.env` and set your custom URL:
+   ```
+   VITE_BITCOIN_API_URL=http://localhost:3000
+   ```
+
+3. Restart the dev server
+
 ### Building for Production
 
 ```bash

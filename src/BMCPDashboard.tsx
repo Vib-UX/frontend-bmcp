@@ -9,9 +9,9 @@ if (typeof window !== 'undefined') {
   window.Buffer = Buffer;
 }
 
-// API Configuration - defaults to localhost, can switch to production
+// API Configuration - defaults to production Railway endpoint
 const BITCOIN_API_URL =
-  import.meta.env.VITE_BITCOIN_API_URL || 'http://localhost:3000';
+  import.meta.env.VITE_BITCOIN_API_URL || 'https://bmcpbitcoin-api-production.up.railway.app';
 
 // Extended chain selectors with suggested addresses
 const SUPPORTED_CHAINS = [

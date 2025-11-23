@@ -34,17 +34,21 @@ Before starting, make sure you have:
 - ✅ npm or yarn installed
 - ✅ Xverse Wallet browser extension (for dashboard)
 - ✅ Bitcoin testnet4 funds (for transactions)
-- ✅ Bitcoin API running (from main BMCP repo)
 
-## Bitcoin API Setup
+**Note**: The Bitcoin API is pre-configured to use the production endpoint at `https://bmcpbitcoin-api-production.up.railway.app`. No local API setup is required!
 
-The dashboard needs the Bitcoin API running:
+## Local Bitcoin API Setup (Optional)
+
+Only needed if you want to run your own Bitcoin API instance:
 
 ```bash
 # In a separate terminal, from main BMCP repo
 cd /path/to/BMCP/packages/bitcoin-api
 npm install
 npm run dev
+
+# Then create .env file with:
+# VITE_BITCOIN_API_URL=http://localhost:3000
 ```
 
 Verify: http://localhost:3000/health
@@ -134,7 +138,10 @@ frontend-bmcp/
 Get testnet BTC: https://mempool.space/testnet4/faucet
 
 ### "Failed to fetch PSBT"
-Start Bitcoin API: `cd /path/to/BMCP/packages/bitcoin-api && npm run dev`
+The production API should be working. If you need to use a local API:
+1. Start local Bitcoin API: `cd /path/to/BMCP/packages/bitcoin-api && npm run dev`
+2. Create `.env` file: `VITE_BITCOIN_API_URL=http://localhost:3000`
+3. Restart dev server
 
 ### "Wallet not found"
 Install Xverse: https://xverse.app
