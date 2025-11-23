@@ -71,6 +71,14 @@ const COMMON_FUNCTIONS = [
     label: 'burn(uint256)',
     value: 'burn(uint256)',
   },
+  {
+    label: 'swapExactTokensForTokens(uint256,uint256,address[],address,uint256) - Uniswap V2',
+    value: 'swapExactTokensForTokens(uint256,uint256,address[],address,uint256)',
+  },
+  {
+    label: 'exactInputSingle((address,address,uint24,address,uint256,uint256,uint256,uint160)) - Uniswap V3',
+    value: 'exactInputSingle((address,address,uint24,address,uint256,uint256,uint256,uint160))',
+  },
 ];
 
 export function BMCPDashboard() {
@@ -530,6 +538,16 @@ export function BMCPDashboard() {
             <p className="text-xs text-gray-500 mt-2">
               Enter arguments as a JSON array matching the function signature
               types
+              {functionSignature.includes('swapExactTokensForTokens') && (
+                <span className="block mt-1 text-blue-600">
+                  💡 Example: ["1000000000000000000", "900000000000000000", ["0xTokenA...", "0xTokenB..."], "0xRecipient...", "1735689600"]
+                </span>
+              )}
+              {functionSignature.includes('exactInputSingle') && (
+                <span className="block mt-1 text-blue-600">
+                  💡 Example: [["0xTokenIn...", "0xTokenOut...", 3000, "0xRecipient...", "1735689600", "1000000000000000000", "900000000000000000", 0]]
+                </span>
+              )}
             </p>
           </div>
 
