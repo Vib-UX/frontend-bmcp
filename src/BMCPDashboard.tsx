@@ -772,16 +772,28 @@ export function BMCPDashboard() {
                         <span className="text-xs text-gray-500 block mb-1">
                           Bitcoin Transaction:
                         </span>
-                        <a
-                          href={`https://mempool.space/testnet4/tx/${
-                            JSON.parse(success).txHash
-                          }`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 px-3 py-1 bg-orange-100 text-orange-700 rounded-lg hover:bg-orange-200 transition text-sm font-medium"
-                        >
-                          🟠 View on Mempool.space
-                        </a>
+                        <div className="flex gap-2 flex-wrap">
+                          <a
+                            href={`https://mempool.space/testnet4/tx/${
+                              JSON.parse(success).txHash
+                            }`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 px-3 py-1 bg-orange-100 text-orange-700 rounded-lg hover:bg-orange-200 transition text-sm font-medium"
+                          >
+                            🟠 View on Mempool.space
+                          </a>
+                          {psbtPreviewLink && (
+                            <a
+                              href={psbtPreviewLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition text-sm font-medium"
+                            >
+                              👁️ Preview PSBT
+                            </a>
+                          )}
+                        </div>
                       </div>
                       <div className="font-mono text-xs text-gray-500 break-all bg-white p-2 rounded border">
                         {JSON.parse(success).txHash}
@@ -866,14 +878,14 @@ export function BMCPDashboard() {
                       </div>
                       <div className="space-y-2 text-xs">
                         <div>
-                          <span className="text-gray-600">Bitcoin Tx:</span>
+                          <span className="text-gray-600">Bitcoin Tx (Confirmed):</span>
                           <a
-                            href="https://mempool.space/testnet4/tx/9c36b0d2c287144f46f25ba0ea7e1b539a44893696880d16bd0482ee214814e5"
+                            href="https://mempool.space/testnet4/tx/967c5898bb81f7780bdde68e6d83c0903095e5650ad6fa5e76cf6cc5926947dd"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="block font-mono text-orange-600 hover:text-orange-800 underline mt-1 break-all"
                           >
-                            9c36b0d2...214814e5
+                            967c5898...6947dd
                           </a>
                         </div>
                         <div className="text-gray-400">
